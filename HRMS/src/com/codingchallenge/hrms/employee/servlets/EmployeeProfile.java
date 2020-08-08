@@ -10,8 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.codingchallenge.hrms.employee.repositories.EmployeeRepository;
+import com.codingchallenge.hrms.util.AuthUtil;
 
 
 /**
@@ -33,12 +35,21 @@ public class EmployeeProfile extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		RequestDispatcher serve =  request.getRequestDispatcher("employee_home.jsp");
-		EmployeeRepository employeeObj = new EmployeeRepository();
-		List<Map<String,String>> employeeProfile = employeeObj.getEmployeeProfile();
-		request.setAttribute("employeeProfile", employeeProfile);
+		
+		
+		RequestDispatcher serve = null;				
+		if(AuthUtil.isAuthenticated(request, response)) {
+			
+			HttpSession session = request.getSession(true);
+			Long empId= (Long) session.getAttribute("empId");
+			serve = request.getRequestDispatcher("employee_home.jsp");
+			EmployeeRepository employeeObj = new EmployeeRepository();
+			List<Map<String,String>> employeeProfile = employeeObj.getEmployeeProfile(empId);
+			request.setAttribute("employeeProfile", employeeProfile);
+			
+		}else {
+			serve = request.getRequestDispatcher("access_denied.jsp");
+		}
 		serve.forward(request, response);
 	}
 

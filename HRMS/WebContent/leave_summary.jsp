@@ -63,7 +63,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								
 								<li><a href="EmployeeProfile" class="effect-3">My Profile</a></li>
 								<li><a href="LeaveApplication" class="effect-3">Leave Application</a></li>
-								<li><a href="login.jsp" class="effect-3">Logout</a></li>
+								<li><a href="LogoutServlet" class="effect-3">Logout</a></li>
 							</ul>
 						</nav>
 					</div>

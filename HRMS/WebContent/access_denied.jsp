@@ -53,115 +53,63 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</a>
 					</div>
 					<!--/.navbar-header-->
-
+					
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<nav class="link-effect-2" id="link-effect-2">
 							<ul class="nav navbar-nav">
-								
-								<li><a href="EmployeeProfile" class="effect-3">My Profile</a></li>
-								<li><a href="LeaveSummaryEmployee" class="effect-3">Leave Summary</a></li>
-								<li><a href="LogoutServlet" class="effect-3">Logout</a></li>
+								<li><a href="LoginServlet" class="effect-3">Login Here..</a></li>
 							</ul>
 						</nav>
 					</div>
+					
 					<!--/.navbar-collapse-->
 					<!--/.navbar-->
 				</div>
 			</nav>
 		</div>
 	</div>
-	<!-- banner -->
-	
-	<!--//banner -->
-	<!--/w3_short-->
+
 	<div class="services-breadcrumb_w3layouts">
 		<div class="inner_breadcrumb">			
 		</div>
 	</div>
-	<!--//w3_short-->
-
-
-<!-- //mid-services -->
-<div class="candidate_cv">
-	<div class="tittle_head_w3ls">
-		<h3 class="tittle two">Apply your Leave</h3>
-	</div>
-	<div class="inner_sec_grids_info login-form">
-		<form action="LeaveApplication" method="post">
-			<div class="col-md-6 form-left">
-				<div class="form-inputs email">
-					<p>Leave Type<span style="color: red; font-size: 20px;">*</span></p>
-					<!-- <i class="fa fa-user" aria-hidden="true"></i> -->
-					<!-- <input type="text" name="Name" placeholder="" required="" /> -->
-					<select name="leave_type" id="country13" onchange="change_country(this.value)" class="frm-field required" style="width: 378px;						
-					height: 40px;">
-						
-						 <option value="Medical Leave">Medical Leave</option>
-						<option value="Maternity Leave">Maternity Leave</option>
-						<option value="Casual Leave">Casual Leave</option>
-						<option value="Annual Leave">Annual Leave</option>							 
-					</select>
-				</div>
-				<div class="form-inputs name">
-					<p>Date of Leave<span style="color: red; font-size: 20px;">*</span></p>
-					<!-- <i class="fa fa-envelope" aria-hidden="true"></i> -->
-					<!-- <input type="email" name="Email" placeholder="" required="" /> -->
-					<input type="date" name="date" required="" style="width: 378px;						
-							"/>
-				</div>
-				<div class="form-inputs name">
-					<p>Number of Days<span style="color: red; font-size: 20px;">*</span></p>
-					<!-- <i class="fa fa-phone" aria-hidden="true"></i> -->
-					<!-- <input type="text" name="Phone" placeholder="" required="" /> -->
-					<input type="text" name="no_of_days"  required="" />
-				</div>
-
-			</div>
-			<div class="col-md-6 form-right">
-				<div class="form-inputs name">
-					<p>Reason<span style="color: red; font-size: 20px;">*</span></p>
-					<!-- <i class="fa fa-comment" aria-hidden="true"></i> -->
-					<textarea name="reason" placeholder="" style="height: 192px;" required=""></textarea>
-				</div>
-			</div>
-			<div class="clearfix"></div>
-			
-			
-			<input type="submit" value="Apply">
-		</form>
-
-	</div>
-</div>
-
-
-	
-	
-<div class="footer_w3ls">
-	<div class="container">
-		<div class="footer_bottom">
-			<div class="col-md-9 footer_bottom_grid">
-				<div class="footer_bottom1">
-					<a href="login.html">
-						<h2><span class="fa fa-signal" aria-hidden="true"></span> HRMS <label></label></h2>
-					</a>
-					<p>Â© 2020 HRMS. All rights reserved | Design by Team Diamond</p>
-				</div>
-			</div>
-			<div class="col-md-3 footer_bottom_grid">
-				
-			</div>
-			
-			<div class="clearfix"> </div>
+	<div class="candidate_cv">
+		<div class="tittle_head_w3ls">
+			<h3 class="tittle two">Access Denied..</h3><p><a href="Login"></a></p>
 		</div>
 
+		
 	</div>
-</div>
+	<!-- //testimonials -->
+	
+
+	<!-- footer -->
+
+	<div class="footer_w3ls">
+		<div class="container">
+			<div class="footer_bottom">
+				<div class="col-md-9 footer_bottom_grid">
+					<div class="footer_bottom1">
+						<a href="login.html">
+							<h2><span class="fa fa-signal" aria-hidden="true"></span> HRMS <label></label></h2>
+						</a>
+						<p>© 2020 HRMS. All rights reserved | Design by Team Diamond</p>
+					</div>
+				</div>
+				<div class="col-md-3 footer_bottom_grid">
+					
+				</div>
+				
+				<div class="clearfix"> </div>
+			</div>
+
+		</div>
+	</div>
 	<!-- //footer -->
 
 	<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 	<!-- js -->
 	<script type="text/javascript" src="assets/js/jquery-2.1.4.min.js"></script>
-	
 
 	<script type="text/javascript" src="assets/js/bootstrap.js"></script>
 </body>

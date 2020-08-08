@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Date;
 
-
+import javax.servlet.http.HttpSession;
 
 public class LeaveRepository {
 	public Boolean saveLeaveApplication(Long empId,String leaveType, String reason,String date,Long noOfDays,Long status ) {
@@ -78,16 +78,17 @@ public class LeaveRepository {
 
 	}
 	
- 	public List<Map<String,String>> getAllLeaveApplication(){
+ 	public List<Map<String,String>> getAllLeaveApplication(long empId){
+ 		
  		Connection con = null;
 		List<Map<String,String>> leaveRequests = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/hrms";
 			con = DriverManager.getConnection(url,"root","123456789");
-			String leaveApplication = "SELECT * FROM leave_application  WHERE empId = 1";				
+			String leaveApplication = "SELECT * FROM leave_application  WHERE empId = ?";				
 			PreparedStatement stmt = con.prepareStatement(leaveApplication);
-			
+			stmt.setLong(1,empId);
 			ResultSet rs = stmt.executeQuery();
 			leaveRequests = new ArrayList<Map<String,String>>();
 			while(rs.next()) {

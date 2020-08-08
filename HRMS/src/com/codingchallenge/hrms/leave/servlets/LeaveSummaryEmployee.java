@@ -8,8 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.codingchallenge.hrms.employee.repositories.EmployeeRepository;
 import com.codingchallenge.hrms.leave.repositories.LeaveRepository;
+import com.codingchallenge.hrms.util.AuthUtil;
+
 import java.util.List;
 import java.util.Map;
 
@@ -31,13 +35,24 @@ public class LeaveSummaryEmployee extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		RequestDispatcher serve =  request.getRequestDispatcher("leave_summary.jsp");
-		LeaveRepository leaveSummaryObj = new LeaveRepository();
-		List<Map<String,String>> leaveRequests = leaveSummaryObj.getAllLeaveApplication();
-		request.setAttribute("leaveRequests", leaveRequests);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		
+		RequestDispatcher serve = null;				
+		if(AuthUtil.isAuthenticated(request, response)) { 
+			
+			HttpSession session = request.getSession(true);
+			Long empId= (Long) session.getAttribute("empId"); 
+			
+			serve =  request.getRequestDispatcher("leave_summary.jsp");
+			LeaveRepository leaveSummaryObj = new LeaveRepository();
+			List<Map<String,String>> leaveRequests = leaveSummaryObj.getAllLeaveApplication(Long.valueOf(empId));
+			request.setAttribute("leaveRequests", leaveRequests);
+			serve.forward(request, response);
+		}else {
+			serve = request.getRequestDispatcher("access_denied.jsp");
+		}
 		serve.forward(request, response);
+		
 	}
 
 	/**
