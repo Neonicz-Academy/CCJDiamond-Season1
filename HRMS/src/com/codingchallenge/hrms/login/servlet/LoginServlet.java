@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
 			String emprole = (String) session.getAttribute("empRole");
 			System.out.println("Role in session" + emprole);
 			if(emprole.equals("Admin") ) {
-				response.sendRedirect("PendingLeaveRequest");
+				response.sendRedirect("PendingLeave");
 			}else {
 				response.sendRedirect("EmployeeProfile");
 			}
@@ -88,10 +88,8 @@ public class LoginServlet extends HttpServlet {
 			}
 			else {
 //				System.out.println("authentication Failed");
-//				request.setAttribute("failed",authenticationFailed);
-
-				serve =  request.getRequestDispatcher("login.jsp");
-				serve.forward(request, response);
+				request.setAttribute("failed",authenticationFailed);
+//				5ve.forward(request, response);
 
 			}
 				}

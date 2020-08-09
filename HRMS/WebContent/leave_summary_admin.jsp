@@ -1,6 +1,3 @@
-<%@ page import ="java.util.ArrayList"%>
-<%@ page import ="java.util.List"%>
-<%@ page import ="java.util.Map"%>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -8,12 +5,15 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
+
 <html>
 
 <head>
 	<link rel=icon href="assets/images/icon.png" />
 	<title>HRMS:Team-Diamond</title>
-		<!--/tags -->
+	<!--/tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Soft Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -51,7 +51,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-						<a class="navbar-brand" href="login.jsp">
+						<a class="navbar-brand" href="login.html">
 							<h1><span class="fa fa-signal" aria-hidden="true"></span> HRMS <label></label></h1>
 						</a>
 					</div>
@@ -60,10 +60,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<nav class="link-effect-2" id="link-effect-2">
 							<ul class="nav navbar-nav">
-								
-								<li><a href="EmployeeProfile" class="effect-3">My Profile</a></li>
-								<li><a href="LeaveApplication" class="effect-3">Leave Application</a></li>
-								<li><a href="LogoutServlet" class="effect-3">Logout</a></li>
+								<li><a href="PendingLeave" class="effect-4">Pending Leave Request</a></li>	
+								<li><a href="AddEmployee" class="effect-6">Add Employee</a></li>							
+								<li><a href="ListEmployee" class="effect-5">Employee List</a></li>		
+																
+								<li><a href="LogoutServlet" class="effect-7">Logout</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -96,56 +97,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="inner_sec_grids_info_w3ls">
 				<div class="col-md-2 job_info_right"></div>
 				<div class="col-md-8 job_info_left">
-					
-					
-					
 					<%
-					List<Map<String,String>> leaveRequests = (List<Map<String,String>>) request.getAttribute("leaveRequests");
-					
-					if(leaveRequests == null){
+				List<Map<String,String>> leavesummary = (List<Map<String,String>>) request.getAttribute("leavesummary");
+					if (leavesummary == null){
 					%>
-					
-					<div class="alert alert-warning">
-					No Data found
+					<div Class="alert alert warning">
+					No Data Found
 					</div>
-					<% } else { 
-					for(Map<String,String> row :leaveRequests){
-						
+					<%}
+					else{
+						for(Map<String,String> row : leavesummary){
+					
 					%>
 					<div class="tab_grid_prof">
 						<div class="col-sm-3 loc_1">
-						<% if(row.get("leaveType").equals("Medical Leave") ){%>
-							<a href="single.html"><img src="assets/images/medical.jpg" alt=""></a>
-						<%}else if((row.get("leaveType").equals("Annual Leave"))){%>
-							<a href="single.html"><img src="assets/images/annual_leave.jpg" alt=""></a>
-						<%}else if((row.get("leaveType").equals("Casual Leave"))){%>
-							<a href="single.html"><img src="assets/images/casual_leave.jpg" alt=""></a>
-						<%} else {%>
-							<a href="single.html"><img src="assets/images/maternity.jpg" alt=""></a>
-							<%}%>
-							
+							<a href="single.html"><img src="<%= row.get("image") %>" alt=""></a>
 						</div>
 						<div class="col-sm-9">
 							<div class="location_box1">
-								<h6><span class="m_2_prof"><%= row.get("leaveType") %></span></h6>	
+								<h6><span class="m_2_prof"><%= row.get("firstName") %> <%= row.get("lastName") %></span></h6>	
 								<span></span>							
 								<div class="person-info">
-								<ul>
-										<li><span>Leave Type</span>: <%= row.get("leaveType") %></li>
-										<li><span>Reason</span>: <%= row.get("reason") %></li>
-										<li><span>Date</span>: <%= row.get("date") %></li>
-										<li><span>No of Days</span>: <%= row.get("noOfDays") %></li>		
-										<% if(row.get("status") .equals("2")){%>
-										<li style ="color:#43b80e;"><span>Status :</span>: Approved </li>
-										<%}else if(row.get("status").equals("3")){%>
-											<li style ="color:#f14124;"><span>Status :</span>: Rejected</li>
-										<%} else {%>
-											<li style ="color:#ffb900;"><span>Status :</span>: Pending</li>
+									<ul>
+										<li><span>Leave Type</span>: <%= row.get("leaveType")%></li>
+										<li><span>Reason</span>: <%=row.get("reason")%></li>
+										<li><span>Date</span>: <%=row.get("date") %></li>
+										<li><span>No of Days</span>:<%=row.get("noOfDays")%></li>
+										<%
+											if (row.get("status").equals("2")) {
+										%>
+										<li style="color: #43b80e;"><span>Status :</span>:
+											Approved </li>
+										<%
+											} else if (row.get("status").equals("3")) {
+										%>
+										<li style="color: #FF0000;"><span>Status :</span>:
+											Rejected </li>
+										<%
+											} else {
+										%>
+										<li style="color: #FFF757;"><span>Status :</span>:
+											Pending</li>
 										<%}%>
-											
 									</ul>
-								
-									
 								</div>
 								
 							</div>
@@ -153,11 +147,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="clearfix"> </div>
 					</div>
 					
-					<% } } %>
-					
-					
+				<% }}%>
 				
-					
 				</div>
 				<div class="col-md-2 job_info_right"></div>
 				<div class="clearfix"></div>
@@ -172,7 +163,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="footer_bottom">
 				<div class="col-md-9 footer_bottom_grid">
 					<div class="footer_bottom1">
-						<a href="login.jsp">
+						<a href="login.html">
 							<h2><span class="fa fa-signal" aria-hidden="true"></span> HRMS <label></label></h2>
 						</a>
 						<p>© 2020 HRMS. All rights reserved | Design by Team Diamond</p>

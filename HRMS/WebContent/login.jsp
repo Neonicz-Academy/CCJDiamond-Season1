@@ -73,6 +73,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		<div class=" login-form">
 			<div class=" login-form-rec">
+			<%
+			Boolean failed = (Boolean)request.getAttribute("failed");
+			if(failed!=null && failed){
+			%>
+			<div class="alert alert-danger"> Invalid username or password.</div>
+			<% 
+			}
+			%>
 				<form action="LoginServlet" method="post">
 					<div class=" form-left">
 						<div class="form-inputs">
@@ -88,7 +96,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 						
 						<div class="form-inputs name">
-						<p>Gender</p>
+						
 						<div class="radio-button-div">
 							<input type="radio" id="admin" name="userRole" value="Admin" required="">
  						 <label for="admin" >Admin</label>

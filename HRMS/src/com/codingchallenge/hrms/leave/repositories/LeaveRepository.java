@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -118,7 +119,180 @@ public class LeaveRepository {
 			}
 		}
 		
-		return leaveRequests;
+		return leaveRequests;		
+	}
+ 	
+ 	public List<Map<String,String>> selectPendingRequest() {
+		Connection com = null;
+		String selectRequestQuery = "SELECT l.applicationId, l.empId, l.leaveType, l.reason, l.appliedDate, l.noOfDays, " + 
+				"e.firstName, e.lastName, e.image FROM leave_application l, employee e where status= 1 and l.empId=e.empId; "; 
+		List<Map<String,String>> pendingRequests = null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		    String url="jdbc:mysql://localhost:3306/hrms";
+		    com = DriverManager.getConnection(url,"root","123456789");
+		   // com = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/hrms?user=root");
+		    PreparedStatement stmt = com.prepareStatement(selectRequestQuery);
+		    ResultSet rs = stmt.executeQuery();
+		    pendingRequests = new ArrayList<Map<String, String>>();
+		    while (rs.next()) {
+			System.out.println(rs.getString("empId") + " , " + rs.getString("leaveType") + " , " + rs.getString("reason") + " ," + rs.getString("noOfDays"));
+			Map<String, String> row = new HashMap<String, String>();
+			row.put("applicationId", rs.getString("applicationId"));
+			row.put("empId", rs.getString("empId"));
+			row.put("leaveType", rs.getString("leaveType"));
+			row.put("reason", rs.getString("reason"));
+			row.put("noOfDays", rs.getString("noOfDays"));
+			row.put("firstName", rs.getString("firstName"));
+			row.put("lastName", rs.getString("lastName"));
+			row.put("image", rs.getString("image"));
+			
+			pendingRequests.add(row);
+		}
+		   com.close();
+		}catch (ClassNotFoundException e)	{
+			e.printStackTrace();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				com.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return  pendingRequests;
 		
 	}
+		public boolean acceptingLeave(Long applicationId) {
+			Connection com = null;
+	   boolean successfull= false;
+		//String selectRequestQuery = "SELECT * FROM leave_application where status= 1"; 
+		//List<Map<String,String>> pendingRequests = null;
+	   
+		try {
+			DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+			dateFormat2.setTimeZone(TimeZone.getTimeZone("GMT"));
+			java.sql.Date timeNow = new java.sql.Date(new Date().getTime());
+		Class.forName("com.mysql.cj.jdbc.Driver");
+	    String url="jdbc:mysql://localhost:3306/hrms";
+		    com = DriverManager.getConnection(url,"root","123456789");
+		    //com = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/hrms?user=root");
+		    String updateQuery = "UPDATE leave_application SET  reviewedDate=?,  reviewedBy='aleena',status=2 WHERE applicationId=? ";  
+		    PreparedStatement stmt = com.prepareStatement(updateQuery);
+		    stmt.setDate(1,timeNow );
+		    stmt.setLong(2,applicationId);
+		    boolean updated = stmt.execute();
+		    //ResultSet rs = stmt.executeQuery();
+		    System.out.println(updated);
+	
+		   com.close();
+		}catch (ClassNotFoundException e)	{
+				e.printStackTrace();
+
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+		try {
+				com.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return   successfull;
+		
+	}
+		public boolean rejectingLeave(Long applicationId) {
+			Connection com = null;
+	   boolean successfull= false;
+		//String selectRequestQuery = "SELECT * FROM leave_application where status= 1"; 
+		//List<Map<String,String>> pendingRequests = null;
+	   
+		try {
+			DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+			dateFormat2.setTimeZone(TimeZone.getTimeZone("GMT"));
+			java.sql.Date timeNow = new java.sql.Date(new Date().getTime());
+		Class.forName("com.mysql.cj.jdbc.Driver");
+	    String url="jdbc:mysql://localhost:3306/hrms";
+		    com = DriverManager.getConnection(url,"root","123456789");
+		    //com = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/hrms?user=root");
+		    String updateQuery = "UPDATE leave_application SET  reviewedDate=?,  reviewedBy='rahul',status=3 WHERE applicationId=? ";  
+		    PreparedStatement stmt = com.prepareStatement(updateQuery);
+		    stmt.setDate(1,timeNow );
+		    stmt.setLong(2,applicationId);
+		    boolean updated = stmt.execute();
+		    //ResultSet rs = stmt.executeQuery();
+		    System.out.println(updated);
+	
+		   com.close();
+		}catch (ClassNotFoundException e)	{
+				e.printStackTrace();
+
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+		try {
+				com.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return   successfull;
+		
+	}
+		public List<Map<String, String>> getAllApplicationsByAdmin() {
+			System.out.println("jdchbsdvj");
+			Connection con = null;
+			List<Map<String, String>> leavesummary = null;
+			System.out.println("after List<Map<String, String>");
+			System.out.println(" before try");
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				String url = "jdbc:mysql://localhost:3306/hrms";
+				con = DriverManager.getConnection(url, "root", "123456789");
+				System.out.println("inside database");
+				String leaveapplication = "SELECT l.applicationId,l.empId,l.leaveType,l.reason,l.appliedDate,l.reviewedDate,l.date,l.noOfDays,l.status,e.firstName,e.lastName,e.image,e.gender FROM leave_application l,employee e WHERE l.empId=e.empId;";
+				PreparedStatement stmt = con.prepareStatement(leaveapplication);
+				ResultSet rs = stmt.executeQuery();
+				leavesummary = new ArrayList<Map<String,String>>();
+				System.out.println("before while");
+				while (rs.next()) {
+					Map<String, String> row = new HashMap<String, String>();
+					row.put("empId", rs.getString("empId"));
+					row.put("leaveType", rs.getString("leaveType"));
+					row.put("status", rs.getString("status"));
+					row.put("reason", rs.getString("reason"));
+					row.put("date", rs.getString("date"));
+					row.put("noOfDays", rs.getString("noOfDays"));
+					row.put("applicationId", rs.getString("applicationId"));
+					row.put("firstName", rs.getString("firstName"));
+					row.put("lastName", rs.getString("lastName"));
+					row.put("image", rs.getString("image"));
+					leavesummary.add(row);
+				}
+				System.out.println("after while" + leavesummary.size());
+				con.close();
+			} catch (ClassNotFoundException e) {
+
+				e.printStackTrace();
+
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			} finally {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+			}
+			return leavesummary;
+		}
 }

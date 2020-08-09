@@ -43,7 +43,7 @@ public class LeaveApplication extends HttpServlet {
 		if((leaveApplied != null ) && (leaveApplied.equals("success"))) {
 			serve =  request.getRequestDispatcher("leave_summary.jsp");
 			LeaveRepository leaveSummaryObj = new LeaveRepository();
-			List<Map<String,String>> leaveRequests = leaveSummaryObj.getAllLeaveApplication();
+			List<Map<String,String>> leaveRequests = leaveSummaryObj.getAllLeaveApplication(123l);
 			request.setAttribute("leaveRequests", leaveRequests);			
 			serve.forward(request, response);
 		}
