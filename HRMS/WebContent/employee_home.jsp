@@ -144,7 +144,7 @@ for(Map<String,String> row :employeeProfile ){ %>
 
 <div class="agileits_w3layouts_banner_bottom_grid">
 
-<img src="<%= row.get("image") %>" alt=" " class="img-responsive" />
+<img src="GetUploadedImage?empId=<%= row.get("empId") %>" alt="" />
 </div>
 </div>
 <div class="clearfix"> </div>

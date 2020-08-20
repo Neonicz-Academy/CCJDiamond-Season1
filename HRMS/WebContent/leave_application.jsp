@@ -87,6 +87,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<h3 class="tittle two">Apply your Leave</h3>
 	</div>
 	<div class="inner_sec_grids_info login-form">
+	
+			<%
+			Boolean dateValidation = (Boolean)request.getAttribute("dateValidation");
+			if(dateValidation!=null && dateValidation){
+				System.out.println("inside jsp");
+				System.out.println(request.getAttribute("dateValidation"));
+			%>
+			nnnnnnnnnnnnnnnnnnn
+			<div class="alert alert-danger"> Invalid date.</div>
+			<% 
+			}
+			%>
+			
 		<form action="LeaveApplication" method="post">
 			<div class="col-md-6 form-left">
 				<div class="form-inputs email">

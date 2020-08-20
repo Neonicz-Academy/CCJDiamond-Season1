@@ -1,6 +1,9 @@
 package com.codingchallenge.hrms.leave.servlets;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +39,10 @@ public class LeaveApplication extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		HttpSession session = request.getSession(true);
+		Long empId= (Long) session.getAttribute("empId");
+		
 		RequestDispatcher serve = null;				
 		if(AuthUtil.isAuthenticated(request, response)) {
 		
@@ -43,7 +50,7 @@ public class LeaveApplication extends HttpServlet {
 		if((leaveApplied != null ) && (leaveApplied.equals("success"))) {
 			serve =  request.getRequestDispatcher("leave_summary.jsp");
 			LeaveRepository leaveSummaryObj = new LeaveRepository();
-			List<Map<String,String>> leaveRequests = leaveSummaryObj.getAllLeaveApplication(123l);
+			List<Map<String,String>> leaveRequests = leaveSummaryObj.getAllLeaveApplication(empId);
 			request.setAttribute("leaveRequests", leaveRequests);			
 			serve.forward(request, response);
 		}
@@ -68,22 +75,46 @@ public class LeaveApplication extends HttpServlet {
 		String noOfDays = request.getParameter("no_of_days");
 		String reason = request.getParameter("reason");
 		String leaveType = request.getParameter("leave_type");
+		String status = "1";
+		boolean authenticationFailed = false;
 		
 		HttpSession session = request.getSession(true);
 		Long empId= (Long) session.getAttribute("empId");
 		
+		System.err.println("Endered Date: "+ date);
+		// current date into Created On.
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd ");
+		Date created_date = new Date();
+		String createdOn = dateFormat.format(created_date);
+		System.out.println("today :"+ createdOn);
 		
-		String status = "1";
+	
+		
+		
+		
 		if((date!=null && date.isEmpty()) ||(noOfDays!=null && noOfDays.isEmpty()) ||
 				(reason!=null && reason.isEmpty()) || (leaveType!=null && leaveType.isEmpty())) {
 			System.err.println("Null values");
 		}
-		else {			
-			System.err.println("No Null values");
-			LeaveRepository applicationObj = new LeaveRepository();
-			applicationObj.saveLeaveApplication(empId,leaveType,reason,date,Long.valueOf(noOfDays),Long.valueOf(status));
+		else {	
+			 if (date.compareTo(createdOn) > 0) { 
+		            System.out.println("date is after createdOn"); 
+		            System.err.println("No Null values");
+					LeaveRepository applicationObj = new LeaveRepository();
+					applicationObj.saveLeaveApplication(empId,leaveType,reason,date,Long.valueOf(noOfDays),Long.valueOf(status));
+					request.setAttribute("leaveApplied", "success");
+			 } 
+			 else {
+				 System.out.println("date is before createdOn"); 
+				 authenticationFailed = true;
+				 request.setAttribute("dateValidation",authenticationFailed);
+				 System.out.println(request.getAttribute("dateValidation"));
+			 			 }
+			
+			
+			
 				}
-		request.setAttribute("leaveApplied", "success");
+		
 		doGet(request, response);
 				
 		

@@ -111,7 +111,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="tab_grid_prof">
 						<div class="col-sm-3 loc_1">
 						    <figure>
-							<img src="<%= ViewEmployee.get("image") %>" alt=" " class="img-responsive" />
+							<img src="GetUploadedImage?empId=<%= ViewEmployee.get("empId") %>" alt=" " class="img-responsive" />
 							<h4 style="padding-left: 40px;"><span class="m_2_prof">EMP 105</span></h4>
 							<!-- <figcaption>EMP 105</figcaption> 
 							<figcaption>abc@gmail.com</figcaption>  -->

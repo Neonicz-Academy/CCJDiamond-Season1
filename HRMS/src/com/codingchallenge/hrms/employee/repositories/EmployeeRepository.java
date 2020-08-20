@@ -221,18 +221,18 @@ public class EmployeeRepository {
 		}
 
 	}
-	public Boolean saveEmployee(String empId,String firstName, String lastName,String email, Long phone,String dateOfBirth,String dateOfJoining,String address,String gender,String jobTitle,String department) {
+	public Boolean saveEmployee(Long empId,String firstName, String lastName,String email, Long phone,String dateOfBirth,String dateOfJoining,String address,String gender,String jobTitle,String department,String image) {
 		Connection con = null;
 		boolean successfull = false;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/hrms";
 			con = DriverManager.getConnection(url,"root","123456789");
-			String insertEmployee = "INSERT INTO employee(empId,firstName,lastName,email,phone,dateOfBirth,dateOfJoining,address,gender,jobTitle,department)"
-					+  "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+			String insertEmployee = "INSERT INTO employee(empId,firstName,lastName,email,phone,dateOfBirth,dateOfJoining,address,gender,jobTitle,department,image)"
+					+  "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement stmt = con.prepareStatement(insertEmployee);
 
-			stmt.setString(1, empId);
+			stmt.setLong(1, empId);
 			stmt.setString(2, firstName);
 			stmt.setString(3, lastName);
 			stmt.setString(4, email);
@@ -243,6 +243,7 @@ public class EmployeeRepository {
 			stmt.setString(9, gender);
 			stmt.setString(10, jobTitle);
 			stmt.setString(11, department);
+			stmt.setString(12, image);
 			Boolean inserted = stmt.execute();
 			System.out.println(inserted);
 			if (stmt.getUpdateCount() > 0) {

@@ -89,7 +89,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		
 		<div class="inner_sec_grids_info login-form">
-			<form action="AddEmployee" method="post">
+			<form action="AddEmployee" method="post" enctype="multipart/form-data">
 				<div class="col-md-6 form-left">
 				
 					
@@ -110,7 +110,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="form-inputs name">
 						<p>Email<span style="color: red; font-size: 20px;">*</span></p>
 						<i class="fa fa-envelope" aria-hidden="true"></i>
-						<input type="email" name="Email" placeholder="" required="" />
+						<input type="email" name="email" placeholder="" required="" />
 					</div>
 					<div class="form-inputs name">
 						<p>Date of Birth</p>
@@ -125,7 +125,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="form-inputs name">
 						<p>Department</p>
 						<i class="fa fa-users" aria-hidden="true"></i>
-						<input type="text" name="Dept" placeholder="" required="" />
+						<input type="text" name="dept" placeholder="" required="" />
 					</div>
 					
 					
@@ -149,7 +149,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="form-inputs name">
 						<p>Phone<span style="color: red; font-size: 20px;">*</span></p>
 						<i class="fa fa-phone" aria-hidden="true" style="top: 33px;"></i>
-						<input type="text" name="Phone" placeholder="" required=""  />
+						<input type="text" name="phone" placeholder="" required=""  />
 					</div>
 					<div class="form-inputs name">
 						<p>Date of Joining</p>
@@ -159,7 +159,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="form-inputs name">
 						<p>Address</p>
 						<i class="fa fa-home"  aria-hidden="true"></i>
-						<textarea name="description" rows="3" cols="50" placeholder=""></textarea>
+						<textarea name="address" rows="3" cols="50" placeholder=""></textarea>
 					</div>
 					
 					

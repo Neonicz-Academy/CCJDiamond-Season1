@@ -111,7 +111,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					%>
 					<div class="tab_grid_prof">
 						<div class="col-sm-3 loc_1">
-							<a href="single.html"><img src="<%= row.get("image") %>" alt=""></a>
+							<a href="single.html"><img src="GetUploadedImage?empId=<%= row.get("empId") %>" alt=""></a>
 						</div>
 						<div class="col-sm-9">
 							<div class="location_box1">
